@@ -1,0 +1,7 @@
+[submodule "lib/libjpeg-turbo"]
+	path = lib/libjpeg-turbo
+	url = https://android.googlesource.com/platform/external/libjpeg-turbo
+	branch = android15-qpr1-release
+[submodule "mp4parser/mp4parser"]
+	path = mp4parser/mp4parser
+	url = https://github.com/copiousfreetime/mp4parser.git

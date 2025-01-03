@@ -77,17 +77,15 @@ public class GalleryActivity extends Activity implements MultiChoiceManager.Prov
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.menu_camera:
+        if (item.getItemId() == R.id.menu_camera) {
             // TODO: Call the correct Camera intent.
             throw new RuntimeException("Not implemented yet.");
 //            Intent intent = new Intent(this, CameraActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            startActivity(intent);
 //            return true;
-        default:
-            return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public static class TabsAdapter extends FragmentPagerAdapter implements

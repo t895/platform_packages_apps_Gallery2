@@ -229,39 +229,32 @@ public class MenuExecutor {
     public void onMenuClicked(int action, ProgressListener listener,
             boolean waitOnStop, boolean showDialog) {
         int title;
-        switch (action) {
-            case R.id.action_select_all:
-                if (mSelectionManager.inSelectAllMode()) {
-                    mSelectionManager.deSelectAll();
-                } else {
-                    mSelectionManager.selectAll();
-                }
-                return;
-            case R.id.action_crop: {
-                Intent intent = getIntentBySingleSelectedPath(CropActivity.CROP_ACTION);
-                ((Activity) mActivity).startActivity(intent);
-                return;
+        if (action == R.id.action_select_all) {
+            if (mSelectionManager.inSelectAllMode()) {
+                mSelectionManager.deSelectAll();
+            } else {
+                mSelectionManager.selectAll();
             }
-            case R.id.action_edit: {
-                Intent intent = getIntentBySingleSelectedPath(Intent.ACTION_EDIT)
-                        .setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                ((Activity) mActivity).startActivity(Intent.createChooser(intent, null));
-                return;
-            }
-            case R.id.action_delete:
-                title = R.string.delete;
-                break;
-            case R.id.action_rotate_cw:
-                title = R.string.rotate_right;
-                break;
-            case R.id.action_rotate_ccw:
-                title = R.string.rotate_left;
-                break;
-            case R.id.action_show_on_map:
-                title = R.string.show_on_map;
-                break;
-            default:
-                return;
+            return;
+        } else if (action == R.id.action_crop) {
+            Intent intent = getIntentBySingleSelectedPath(CropActivity.CROP_ACTION);
+            ((Activity) mActivity).startActivity(intent);
+            return;
+        } else if (action == R.id.action_edit) {
+            Intent intent = getIntentBySingleSelectedPath(Intent.ACTION_EDIT)
+                    .setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            ((Activity) mActivity).startActivity(Intent.createChooser(intent, null));
+            return;
+        } else if (action == R.id.action_delete) {
+            title = R.string.delete;
+        } else if (action == R.id.action_rotate_cw) {
+            title = R.string.rotate_right;
+        } else if (action == R.id.action_rotate_ccw) {
+            title = R.string.rotate_left;
+        } else if (action == R.id.action_show_on_map) {
+            title = R.string.show_on_map;
+        } else {
+            return;
         }
         startAction(action, title, listener, waitOnStop, showDialog);
     }
@@ -361,38 +354,30 @@ public class MenuExecutor {
         Log.v(TAG, "Execute cmd: " + cmd + " for " + path);
         long startTime = System.currentTimeMillis();
 
-        switch (cmd) {
-            case R.id.action_delete:
-                manager.delete(path);
-                break;
-            case R.id.action_rotate_cw:
-                manager.rotate(path, 90);
-                break;
-            case R.id.action_rotate_ccw:
-                manager.rotate(path, -90);
-                break;
-            case R.id.action_toggle_full_caching: {
-                MediaObject obj = manager.getMediaObject(path);
-                int cacheFlag = obj.getCacheFlag();
-                if (cacheFlag == MediaObject.CACHE_FLAG_FULL) {
-                    cacheFlag = MediaObject.CACHE_FLAG_SCREENNAIL;
-                } else {
-                    cacheFlag = MediaObject.CACHE_FLAG_FULL;
-                }
-                obj.cache(cacheFlag);
-                break;
+        if (cmd == R.id.action_delete) {
+            manager.delete(path);
+        } else if (cmd == R.id.action_rotate_cw) {
+            manager.rotate(path, 90);
+        } else if (cmd == R.id.action_rotate_ccw) {
+            manager.rotate(path, -90);
+        } else if (cmd == R.id.action_toggle_full_caching) {
+            MediaObject obj = manager.getMediaObject(path);
+            int cacheFlag = obj.getCacheFlag();
+            if (cacheFlag == MediaObject.CACHE_FLAG_FULL) {
+                cacheFlag = MediaObject.CACHE_FLAG_SCREENNAIL;
+            } else {
+                cacheFlag = MediaObject.CACHE_FLAG_FULL;
             }
-            case R.id.action_show_on_map: {
-                MediaItem item = (MediaItem) manager.getMediaObject(path);
-                double latlng[] = new double[2];
-                item.getLatLong(latlng);
-                if (GalleryUtils.isValidLocation(latlng[0], latlng[1])) {
-                    GalleryUtils.showOnMap(mActivity, latlng[0], latlng[1]);
-                }
-                break;
+            obj.cache(cacheFlag);
+        } else if (cmd == R.id.action_show_on_map) {
+            MediaItem item = (MediaItem) manager.getMediaObject(path);
+            double latlng[] = new double[2];
+            item.getLatLong(latlng);
+            if (GalleryUtils.isValidLocation(latlng[0], latlng[1])) {
+                GalleryUtils.showOnMap(mActivity, latlng[0], latlng[1]);
             }
-            default:
-                throw new AssertionError();
+        } else {
+            throw new AssertionError();
         }
         Log.v(TAG, "It takes " + (System.currentTimeMillis() - startTime) +
                 " ms to execute cmd for " + path);

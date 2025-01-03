@@ -48,20 +48,18 @@ public class PresetManagementDialog extends DialogFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         FilterShowActivity activity = (FilterShowActivity) getActivity();
-        switch (v.getId()) {
-            case R.id.cancel:
-                mAdapter.clearChangedRepresentations();
-                mAdapter.clearDeletedRepresentations();
-                activity.updateUserPresetsFromAdapter(mAdapter);
-                dismiss();
-                break;
-            case R.id.ok:
-                String text = String.valueOf(mEditText.getText());
-                activity.saveCurrentImagePreset(text);
-                mAdapter.updateCurrent();
-                activity.updateUserPresetsFromAdapter(mAdapter);
-                dismiss();
-                break;
+        int id = v.getId();
+        if (id == R.id.cancel) {
+            mAdapter.clearChangedRepresentations();
+            mAdapter.clearDeletedRepresentations();
+            activity.updateUserPresetsFromAdapter(mAdapter);
+            dismiss();
+        } else if (id == R.id.ok) {
+            String text = String.valueOf(mEditText.getText());
+            activity.saveCurrentImagePreset(text);
+            mAdapter.updateCurrent();
+            activity.updateUserPresetsFromAdapter(mAdapter);
+            dismiss();
         }
     }
 }

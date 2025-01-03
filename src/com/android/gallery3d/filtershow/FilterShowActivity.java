@@ -1033,50 +1033,41 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.undoButton: {
-                HistoryManager adapter = mPrimaryImage.getHistory();
-                int position = adapter.undo();
-                mPrimaryImage.onHistoryItemClick(position);
-                backToMain();
-                invalidateViews();
-                return true;
-            }
-            case R.id.redoButton: {
-                HistoryManager adapter = mPrimaryImage.getHistory();
-                int position = adapter.redo();
-                mPrimaryImage.onHistoryItemClick(position);
-                invalidateViews();
-                return true;
-            }
-            case R.id.resetHistoryButton: {
-                resetHistory();
-                return true;
-            }
-            case R.id.showImageStateButton: {
-                toggleImageStatePanel();
-                return true;
-            }
-            case R.id.exportFlattenButton: {
-                showExportOptionsDialog();
-                return true;
-            }
-            case android.R.id.home: {
-                saveImage();
-                return true;
-            }
-            case R.id.manageUserPresets: {
-                manageUserPresets();
-                return true;
-            }
-            case R.id.showInfoPanel: {
-                toggleInformationPanel();
-                return true;
-            }
-            case R.id.printButton: {
-                print();
-                return true;
-            }
+        int itemId = item.getItemId();
+        if (itemId == R.id.undoButton) {
+            HistoryManager adapter = mPrimaryImage.getHistory();
+            int position = adapter.undo();
+            mPrimaryImage.onHistoryItemClick(position);
+            backToMain();
+            invalidateViews();
+            return true;
+        } else if (itemId == R.id.redoButton) {
+            HistoryManager adapter = mPrimaryImage.getHistory();
+            int position = adapter.redo();
+            mPrimaryImage.onHistoryItemClick(position);
+            invalidateViews();
+            return true;
+        } else if (itemId == R.id.resetHistoryButton) {
+            resetHistory();
+            return true;
+        } else if (itemId == R.id.showImageStateButton) {
+            toggleImageStatePanel();
+            return true;
+        } else if (itemId == R.id.exportFlattenButton) {
+            showExportOptionsDialog();
+            return true;
+        } else if (itemId == android.R.id.home) {
+            saveImage();
+            return true;
+        } else if (itemId == R.id.manageUserPresets) {
+            manageUserPresets();
+            return true;
+        } else if (itemId == R.id.showInfoPanel) {
+            toggleInformationPanel();
+            return true;
+        } else if (itemId == R.id.printButton) {
+            print();
+            return true;
         }
         return false;
     }

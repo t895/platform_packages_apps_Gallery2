@@ -150,21 +150,19 @@ public class ExportDialog extends DialogFragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.cancel:
-                dismiss();
-                break;
-            case R.id.done:
-                FilterShowActivity activity = (FilterShowActivity) getActivity();
-                Uri sourceUri = PrimaryImage.getImage().getUri();
-                File dest = SaveImage.getNewFile(activity,  activity.getSelectedImageUri());
-                float scaleFactor = mExportWidth / (float) mOriginalBounds.width();
-                Intent processIntent = ProcessingService.getSaveIntent(activity, PrimaryImage
-                        .getImage().getPreset(), dest, activity.getSelectedImageUri(), sourceUri,
-                        true, mSeekBar.getProgress(), scaleFactor, false);
-                activity.startService(processIntent);
-                dismiss();
-                break;
+        int id = v.getId();
+        if (id == R.id.cancel) {
+            dismiss();
+        } else if (id == R.id.done) {
+            FilterShowActivity activity = (FilterShowActivity) getActivity();
+            Uri sourceUri = PrimaryImage.getImage().getUri();
+            File dest = SaveImage.getNewFile(activity, activity.getSelectedImageUri());
+            float scaleFactor = mExportWidth / (float) mOriginalBounds.width();
+            Intent processIntent = ProcessingService.getSaveIntent(activity, PrimaryImage
+                            .getImage().getPreset(), dest, activity.getSelectedImageUri(), sourceUri,
+                    true, mSeekBar.getProgress(), scaleFactor, false);
+            activity.startService(processIntent);
+            dismiss();
         }
     }
 
