@@ -51,8 +51,7 @@
             android:appCategory="image"
             android:restoreAnyVersion="true"
             android:supportsRtl="true"
-            android:requestLegacyExternalStorage="true"
-            usesCleartextHttp="true">
+            android:requestLegacyExternalStorage="true">
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <activity android:name="com.android.gallery3d.app.MovieActivity"
                 android:label="@string/movie_view_label"

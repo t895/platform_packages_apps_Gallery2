@@ -54,9 +54,6 @@ android {
 }
 
 dependencies {
-    // Required for org.apache.https.legacy
-    compileOnly("com.android.tools.build:gradle:4.2.2")
-
     implementation("androidx.core:core:1.15.0")
     implementation("androidx.print:print:1.1.0-beta01")
     implementation("androidx.fragment:fragment:1.8.5")
