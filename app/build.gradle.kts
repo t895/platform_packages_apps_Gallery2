@@ -20,7 +20,7 @@ android {
         versionName = "1.1.40031"
         minSdk = 35
         //noinspection ExpiredTargetSdkVersion
-        targetSdk = 29
+        targetSdk = 35
 
         ndk {
             abiFilters.clear()
